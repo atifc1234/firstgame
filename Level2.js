@@ -24,7 +24,24 @@ class Level2 extends Phaser.Scene {
         platforms.create(320, 580, 'platform').setScale(1.5).refreshBody();
         gameState.player.setCollideWorldBounds(true);
         this.physics.add.collider(gameState.player, platforms);
-    }
+        this.createPlatforms(640, 50, .3);
+        const teleporter2 = this.physics.add.staticGroup();
+        teleporter2.create(100, 100, 'platform').setScale(.1).setTint(0xfa67d8).refreshBody();
+        this.physics.add.collider(gameState.player, teleporter2);
+        const teleporter1 = this.physics.add.staticGroup();
+        teleporter1.create(620, 520, 'platform').setScale(.1).setTint(0xfa67d8).refreshBody();
+        this.physics.add.collider(gameState.player, teleporter1, ()=> {
+          gameState.player.x = 100;
+          gameState.player.y = 80;
+        });
+        this.createJumpPads(505, 350, .3);
+        const warpPads = this.physics.add.staticGroup();
+        warpPads.create(640, 42, 'platform').setScale(.1).setTint(0xffff00).refreshBody();
+        this.physics.add.collider(gameState.player, warpPads, ()=> {
+          this.scene.stop('Level2');
+          this.scene.start('Level3');
+        });
+    
     update() {
         const cursors = this.input.keyboard.createCursorKeys();
         if (cursors.left.isDown) {
