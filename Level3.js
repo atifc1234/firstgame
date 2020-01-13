@@ -1,6 +1,6 @@
-class Level2 extends Phaser.Scene {
+class Level3 extends Phaser.Scene {
     constructor() {
-        super({ key: 'Level2'})
+        super({ key: 'Level3'})
     }
     preload() {
         this.load.image('codey', 'https://s3.amazonaws.com/codecademy-content/courses/learn-phaser/physics/codey.png');
@@ -19,27 +19,31 @@ class Level2 extends Phaser.Scene {
         });
       }
     create() {
-        gameState.player = this.physics.add.sprite(320, 500, 'codey').setScale(.5);
+        gameState.player = this.physics.add.sprite(60, 80, 'codey').setScale(.5);
         const platforms = this.physics.add.staticGroup();
-        platforms.create(320, 580, 'platform').setScale(1.5).refreshBody();
+        this.createPlatforms(65, 100, .1);
+        this.createPlatforms(320, 200, 1);
+        this.createPlatforms(120, 300, .6);
+        this.createPlatforms(367, 310, .3);
         gameState.player.setCollideWorldBounds(true);
         this.physics.add.collider(gameState.player, platforms);
-        this.createPlatforms(640, 50, .3);
         const teleporter2 = this.physics.add.staticGroup();
-        teleporter2.create(100, 100, 'platform').setScale(.1).setTint(0xfa67d8).refreshBody();
+        teleporter2.create(22, 100, 'platform').setScale(.1).setTint(0xfa67d8).refreshBody();
         this.physics.add.collider(gameState.player, teleporter2);
         const teleporter1 = this.physics.add.staticGroup();
-        teleporter1.create(620, 520, 'platform').setScale(.1).setTint(0xfa67d8).refreshBody();
+        teleporter1.create(620, 520, 'platform').setScale(.4).setTint(0xfa67d8).refreshBody();
+        teleporter1.create(278, 317, 'platform').setScale(.1).setTint(0xfa67d8).refreshBody();
+        teleporter1.create(541, 115, 'platform').setScale(.2).setTint(0xfa67d8).refreshBody().setAngle(90);
         this.physics.add.collider(gameState.player, teleporter1, ()=> {
-          gameState.player.x = 100;
-          gameState.player.y = 80;
+          gameState.player.x = 22;
+          gameState.player.y = 70;
         });
-        this.createJumpPads(505, 350, .3);
+        this.createJumpPads(22, 280, .1);
         const warpPads = this.physics.add.staticGroup();
-        warpPads.create(640, 42, 'platform').setScale(.1).setTint(0xffff00).refreshBody();
+        warpPads.create(320, 580, 'platform').setScale(1.5).setTint(0xffff00).refreshBody();
         this.physics.add.collider(gameState.player, warpPads, ()=> {
-          this.scene.stop('Level2');
-          this.scene.start('Level3');
+          this.scene.stop('Level3');
+          this.scene.start('Level4');
         });
     }
     update() {
