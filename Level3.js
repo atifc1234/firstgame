@@ -33,7 +33,7 @@ class Level3 extends Phaser.Scene {
         const teleporter1 = this.physics.add.staticGroup();
         teleporter1.create(620, 520, 'platform').setScale(.4).setTint(0xfa67d8).refreshBody();
         teleporter1.create(278, 317, 'platform').setScale(.1).setTint(0xfa67d8).refreshBody();
-        teleporter1.create(541, 115, 'platform').setScale(.2).setTint(0xfa67d8).refreshBody().setAngle(90);
+        teleporter1.create(591, 170, 'platform').setScale(.2).setTint(0xfa67d8).refreshBody();
         this.physics.add.collider(gameState.player, teleporter1, ()=> {
           gameState.player.x = 22;
           gameState.player.y = 70;
