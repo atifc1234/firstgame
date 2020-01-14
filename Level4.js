@@ -47,7 +47,7 @@ class Level4 extends Phaser.Scene  {
         warpPads.create(550, 40, 'platform').setScale(.1).setTint(0xffff00).refreshBody();
         this.physics.add.collider(gameState.player, warpPads, ()=> {
           this.scene.stop('Level4');
-          this.scene.start('Level5');
+          this.scene.start('EndScene');
         });
     }
     update() {
