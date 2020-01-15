@@ -48,3 +48,4 @@ class Level5 extends Phaser.Scene  {
             gameState.player.setVelocityY(-250)
         };
     }
+}
