@@ -30,12 +30,19 @@ class Level5 extends Phaser.Scene  {
         });
     }
     create() {
-        gameState.player = this.physics.add.sprite(10, 20, 'codey').setScale(.5);
+        gameState.player = this.physics.add.sprite(320, 500, 'codey').setScale(.5);
         const platforms = this.physics.add.staticGroup();
         platforms.create(320, 580, 'platform').setScale(1.5).refreshBody();
+        this.physics.add.collider(gameState.player, platforms);
         gameState.player.setCollideWorldBounds(true);
+        const warpPads = this.physics.add.staticGroup();
+        warpPads.create(550, 40, 'platform').setScale(.1).setTint(0xffff00).refreshBody();
+        this.physics.add.collider(gameState.player, warpPads, ()=> {
+          this.scene.stop('Level5');
+          this.scene.start('EndScene');
+        });
     }
-     update() {
+    update() {
         const cursors = this.input.keyboard.createCursorKeys();
         if (cursors.left.isDown) {
             gameState.player.setVelocityX(-200);
